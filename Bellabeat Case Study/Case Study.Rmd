@@ -42,15 +42,10 @@ Data Source:
 
 ## Process
 
-Assumptions/Concerns
+Assumptions
 * Time to fall asleep corresponds to the same day as the total activity done in the same row 
-* Every data point is independent
-+ Which is probably not true, but we assume that no one here innately has sleeping problems 
-+ Simply because you sleep badly today does not mean you’ll sleep badly tomorrow
-* Everyone is around the same age, same baseline health
-+ Don’t have information about other health
 
-
+Note: We will only show correlation
 
 
 Cleaning Process 
@@ -59,6 +54,8 @@ Cleaning Process
 library(tidyverse)
 library(lubridate)
 library(readr)
+library(knitr)
+library(kableExtra)
 
 ```
 
@@ -73,4 +70,88 @@ sleep <- read_csv("sleepDay_merged.csv") %>%
   separate(SleepDay, c("SleepDay", "other"), sep = " ") %>% select(-other)
 
 ```
+
+
+```{r}
+dim(activity)
+
+# Join activity and calories df
+act_cal <- left_join(activity, calories, by = c("Id", "ActivityDate" = "ActivityDay", "Calories"))
+
+
+# Join act_cal df with sleep df, dropped 527 entries with NAs, removed 3 duplicates
+fitbit_data <- left_join(act_cal, sleep, by = c("Id", "ActivityDate" = "SleepDay")) %>% 
+  na.omit() %>% 
+  unique()
+
+dim(fitbit_data)
+```
+
+
+Checking for reasonable ranges and glaringly wrong data points
+
+```{r}
+# Sedentary Active Distance should be close to 0 because you're not moving
+fitbit_data %>% 
+  summarise(min_sedentary = min(SedentaryActiveDistance), max_sedentary = max(SedentaryActiveDistance))
+```
+
+```{r}
+# Check if all distances add up 
+a <- fitbit_data %>% 
+  mutate(temp_total = TrackerDistance + LoggedActivitiesDistance + SedentaryActiveDistance + LightActiveDistance + ModeratelyActiveDistance + VeryActiveDistance) %>%
+  select(Id, TotalDistance, temp_total)%>% 
+  mutate(difference = TotalDistance - temp_total) %>%  # take difference to compare if values are close enough
+  filter(difference > 0.1)                             # filter if 
+
+head(a)
+```
+
+
+## Analysis
+
+
+Basic summary of the data 
+```{r}
+fitbit_data %>% group_by(Id) %>% 
+  summarise(avg_time_fall_asleep = mean(TotalMinutesFallAsleep), 
+            avg_steps = mean(TotalSteps), 
+            avg_distance = mean(TotalDistance)) %>% 
+  arrange(-avg_steps) %>% 
+  print(n=10)
+```
+
+
+Compare and contrast clinical data vs Summary data from our dataset
+
+
+```{r}
+clinical <- c("10 - 20", "3000 - 4000", "420 - 540")
+
+fitbit_mean <- lapply(fitbit_data[c("TotalMinutesFallAsleep", "TotalSteps", "TotalMinutesAsleep")], mean)
+
+fitbit_range <- lapply(fitbit_data[c("TotalMinutesFallAsleep", "TotalSteps", "TotalMinutesAsleep")], function(x){
+  paste(range(x), collapse = " - ")
+})
+
+sum_results <- as.data.frame(rbind(clinical, fitbit_range, fitbit_mean))
+
+colnames(sum_results) <- c("Avg Min to Fall Asleep", "Avg Steps Taken a Day", "Avg Hrs of Sleep")
+
+sum_results
+```
+
+
+```{r}
+sum_results %>% 
+  kbl() %>% 
+  kable_minimal()
+```
+
+
+average time to fall asleep is between 10 - 20 minutes
+```{r}
+mean(fitbit_data$TotalMinutesFallAsleep)
+```
+
 
