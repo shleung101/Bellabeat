@@ -103,4 +103,3 @@ clean <- fitbit_data %>%
                                      TotalMinutesFallAsleep > 20 & TotalMinutesFallAsleep <= 60~ "Slow", 
                                      TotalMinutesFallAsleep > 60 ~ "Very Slow") )
 
-write.csv(clean, "C:/Users/serena-ideapad/Documents/Google Analytics Course/Fitbit Fitness Tracker Data/Clean_Fitbit_Data.csv", row.names = FALSE)
