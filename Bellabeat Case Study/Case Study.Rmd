@@ -5,9 +5,22 @@ date: "7/25/2021"
 output: html_document
 ---
 
-asdfasdf 
+Cleaning Process 
 
 ```{r}
+library(tidyverse)
+library(lubridate)
+```
+
+
+```{r}
+# rename df
+activity <- dailyActivity_merged
+calories <- dailyCalories_merged
+
+# separate date time into data and time columns, drop time column
+sleep <- sleepDay_merged %>% 
+  separate(SleepDay, c("SleepDay", "other"), sep = " ") %>% select(-other)
 
 ```
 
