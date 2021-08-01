@@ -22,12 +22,16 @@ Why are these users not using Bellabeat?
 What can we do to get users to start using Bellabeat?
 
 
+
+
 #### Key Tasks 
 1. Business task
 + Why are people using Fitbit instead of Bellabeat?
 2. Stakeholders 
 + Bellabeat founders 
 + Strategy, marketing, product team (if insights require them to make changes)
+
+
 
 
 #### Deliverable
@@ -102,7 +106,7 @@ a <- fitbit_data %>%
   mutate(temp_total = TrackerDistance + LoggedActivitiesDistance + SedentaryActiveDistance + LightActiveDistance + ModeratelyActiveDistance + VeryActiveDistance) %>%
   select(Id, TotalDistance, temp_total)%>% 
   mutate(difference = TotalDistance - temp_total) %>%  # take difference to compare if values are close enough
-  filter(difference > 0.1)                             # filter if 
+  filter(difference > 0.1)                             # filter if difference is big
 
 head(a)
 ```
@@ -137,8 +141,6 @@ fitbit_range <- lapply(fitbit_data[c("TotalMinutesFallAsleep", "TotalSteps", "To
 sum_results <- as.data.frame(rbind(clinical, fitbit_range, fitbit_mean))
 
 colnames(sum_results) <- c("Avg Min to Fall Asleep", "Avg Steps Taken a Day", "Avg Hrs of Sleep")
-
-sum_results
 ```
 
 
@@ -149,9 +151,42 @@ sum_results %>%
 ```
 
 
-average time to fall asleep is between 10 - 20 minutes
+
+#### Goal: Is there a correlation between sleep and exercise?
+
+To better see a possible correlation between sleep and exercise, we can place users into categories depending on their falling asleep rate. 
+
 ```{r}
-mean(fitbit_data$TotalMinutesFallAsleep)
+sleep_cat <- cbind(c("Very Slow", "Slow", "Normal", "Fast"), c("< 10 min", "10 - 20 min", "20.001 - 60 min", "> 60.001 min"))
+
+sleep_cat %>% as.data.frame() %>% rename("Sleep Category" = V1, "Range" = V2)
+
+
+
+```
+
+Now, let's see a summary of the relevant sleep and exercise data:
+
+```{r}
+fitbit_data %>% 
+  mutate(fall_asleep_cat = case_when(TotalMinutesFallAsleep < 10 ~ "Fast",
+                                                   TotalMinutesFallAsleep >= 10 & TotalMinutesFallAsleep <= 20 ~ "Normal",
+                                                   TotalMinutesFallAsleep > 20 & TotalMinutesFallAsleep <= 60~ "Slow", 
+                                                   TotalMinutesFallAsleep > 60 ~ "Very Slow") ) %>% 
+  group_by(fall_asleep_cat) %>%
+  summarise(count = n(), avg_steps = mean(TotalSteps), 
+            avg_seden_min = mean(SedentaryMinutes), 
+            avg_sleep_dur = mean(TotalMinutesAsleep),
+            active_min = mean(VeryActiveMinutes),
+            avg_cal_burned = mean(Calories)) 
 ```
 
 
+However, it's a little hard to discern trends with a table of numbers, so I built a Tableau dashboard that translates these insights into graphs. 
+
+<iframe src="https://public.tableau.com/views/BellabeatViz/Dashboard1?:showVizHome=no&:embed=true" width="800" height="600"></iframe>
+
+
+
+
+https://public.tableau.com/views/BellabeatViz/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link

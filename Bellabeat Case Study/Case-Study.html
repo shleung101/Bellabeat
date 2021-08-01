@@ -678,7 +678,7 @@ a &lt;- fitbit_data %&gt;%
   mutate(temp_total = TrackerDistance + LoggedActivitiesDistance + SedentaryActiveDistance + LightActiveDistance + ModeratelyActiveDistance + VeryActiveDistance) %&gt;%
   select(Id, TotalDistance, temp_total)%&gt;% 
   mutate(difference = TotalDistance - temp_total) %&gt;%  # take difference to compare if values are close enough
-  filter(difference &gt; 0.1)                             # filter if 
+  filter(difference &gt; 0.1)                             # filter if difference is big
 
 head(a)</code></pre>
 <pre><code>## # A tibble: 0 x 4
@@ -710,9 +710,7 @@ head(a)</code></pre>
 ## 10 8378563200                40.8      8718.         6.91
 ## # ... with 14 more rows</code></pre>
 <p>Compare and contrast clinical data vs Summary data from our dataset</p>
-<pre class="r"><code>compare_df &lt;- data.frame()</code></pre>
 <pre class="r"><code>clinical &lt;- c(&quot;10 - 20&quot;, &quot;3000 - 4000&quot;, &quot;420 - 540&quot;)
-
 
 fitbit_mean &lt;- lapply(fitbit_data[c(&quot;TotalMinutesFallAsleep&quot;, &quot;TotalSteps&quot;, &quot;TotalMinutesAsleep&quot;)], mean)
 
@@ -722,13 +720,7 @@ fitbit_range &lt;- lapply(fitbit_data[c(&quot;TotalMinutesFallAsleep&quot;, &quo
 
 sum_results &lt;- as.data.frame(rbind(clinical, fitbit_range, fitbit_mean))
 
-colnames(sum_results) &lt;- c(&quot;Avg Min to Fall Asleep&quot;, &quot;Avg Steps Taken a Day&quot;, &quot;Avg Hrs of Sleep&quot;)
-
-sum_results</code></pre>
-<pre><code>##              Avg Min to Fall Asleep Avg Steps Taken a Day Avg Hrs of Sleep
-## clinical                    10 - 20           3000 - 4000        420 - 540
-## fitbit_range                0 - 371            17 - 22770         58 - 796
-## fitbit_mean                39.30976               8514.91         419.1732</code></pre>
+colnames(sum_results) &lt;- c(&quot;Avg Min to Fall Asleep&quot;, &quot;Avg Steps Taken a Day&quot;, &quot;Avg Hrs of Sleep&quot;)</code></pre>
 <pre class="r"><code>sum_results %&gt;% 
   kbl() %&gt;% 
   kable_minimal()</code></pre>
@@ -793,9 +785,43 @@ fitbit_mean
 </tr>
 </tbody>
 </table>
-<p>average time to fall asleep is between 10 - 20 minutes</p>
-<pre class="r"><code>mean(fitbit_data$TotalMinutesFallAsleep)</code></pre>
-<pre><code>## [1] 39.30976</code></pre>
+<div id="goal-is-there-a-correlation-between-sleep-and-exercise" class="section level4">
+<h4>Goal: Is there a correlation between sleep and exercise?</h4>
+<p>To better see a possible correlation between sleep and exercise, we can place users into categories depending on their falling asleep rate.</p>
+<pre class="r"><code>sleep_cat &lt;- cbind(c(&quot;Very Slow&quot;, &quot;Slow&quot;, &quot;Normal&quot;, &quot;Fast&quot;), c(&quot;&lt; 10 min&quot;, &quot;10 - 20 min&quot;, &quot;20.001 - 60 min&quot;, &quot;&gt; 60.001 min&quot;))
+
+sleep_cat %&gt;% as.data.frame() %&gt;% rename(&quot;Sleep Category&quot; = V1, &quot;Range&quot; = V2)</code></pre>
+<pre><code>##   Sleep Category           Range
+## 1      Very Slow        &lt; 10 min
+## 2           Slow     10 - 20 min
+## 3         Normal 20.001 - 60 min
+## 4           Fast    &gt; 60.001 min</code></pre>
+<p>Now, let’s see a summary of the relevant sleep and exercise data:</p>
+<pre class="r"><code>fitbit_data %&gt;% 
+  mutate(fall_asleep_cat = case_when(TotalMinutesFallAsleep &lt; 10 ~ &quot;Fast&quot;,
+                                                   TotalMinutesFallAsleep &gt;= 10 &amp; TotalMinutesFallAsleep &lt;= 20 ~ &quot;Normal&quot;,
+                                                   TotalMinutesFallAsleep &gt; 20 &amp; TotalMinutesFallAsleep &lt;= 60~ &quot;Slow&quot;, 
+                                                   TotalMinutesFallAsleep &gt; 60 ~ &quot;Very Slow&quot;) ) %&gt;% 
+  group_by(fall_asleep_cat) %&gt;%
+  summarise(count = n(), avg_steps = mean(TotalSteps), 
+            avg_seden_min = mean(SedentaryMinutes), 
+            avg_sleep_dur = mean(TotalMinutesAsleep),
+            active_min = mean(VeryActiveMinutes),
+            avg_cal_burned = mean(Calories)) </code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 4 x 7
+##   fall_asleep_cat count avg_steps avg_seden_min avg_sleep_dur active_min
+##   &lt;chr&gt;           &lt;int&gt;     &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Fast               38     8877.          887.          296.       30.9
+## 2 Normal            103     9028.          716.          411.       27.4
+## 3 Slow              217     8101.          695.          447.       24.2
+## 4 Very Slow          52     8961.          650.          408.       19.6
+## # ... with 1 more variable: avg_cal_burned &lt;dbl&gt;</code></pre>
+<p>However, it’s a little hard to discern trends with a table of numbers, so I built a Tableau dashboard that translates these insights into graphs.</p>
+<iframe src="https://public.tableau.com/views/BellabeatViz/Dashboard1?:showVizHome=no&amp;:embed=true" width="800" height="600">
+</iframe>
+<p><a href="https://public.tableau.com/views/BellabeatViz/Dashboard1" class="uri">https://public.tableau.com/views/BellabeatViz/Dashboard1</a>?:language=en-US&amp;publish=yes&amp;:display_count=n&amp;:origin=viz_share_link</p>
+</div>
 </div>
 
 
