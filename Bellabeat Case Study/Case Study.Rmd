@@ -1,25 +1,75 @@
 ---
-title: "Bellabeat"
+title: "Bellabeat Case Study"
 author: "Serena Leung"
 date: "7/25/2021"
 output: html_document
 ---
 
+## Ask 
+
+Guiding Questions: 
+
+Goal: Want to gain insight into how non-Bellabeat users use smart devices, then apply insights to one Bellabeat product 
+
+
+#### What is the problem you are trying to solve?
+Why are these users not using Bellabeat?
+* Ie: why are they using Fitbit
+
+
+
+#### How can your insights drive business decisions?
+What can we do to get users to start using Bellabeat?
+
+
+#### Key Tasks 
+1. Business task
++ Why are people using Fitbit instead of Bellabeat?
+2. Stakeholders 
++ Bellabeat founders 
++ Strategy, marketing, product team (if insights require them to make changes)
+
+
+#### Deliverable
+To determine particular trends in Bellabeat’s competitors, we will use the provided Fitbit data (and many include other relevant datasets as well). In this project, we will focus on different factors that competitors have (but Bellabeat don’t have) to ascertain whether this difference has an effect on sales or membership. Ultimately, the goal is to identify trends within our competitor's product and see if we can apply these trends to Bellabeat.
+
+
+
+## Prepare
+
+Data Source: 
+
+
+## Process
+
+Assumptions/Concerns
+* Time to fall asleep corresponds to the same day as the total activity done in the same row 
+* Every data point is independent
++ Which is probably not true, but we assume that no one here innately has sleeping problems 
++ Simply because you sleep badly today does not mean you’ll sleep badly tomorrow
+* Everyone is around the same age, same baseline health
++ Don’t have information about other health
+
+
+
+
 Cleaning Process 
 
-```{r}
+```{r, include=FALSE}
 library(tidyverse)
 library(lubridate)
+library(readr)
+
 ```
 
 
-```{r}
+```{r, message=FALSE}
 # rename df
-activity <- dailyActivity_merged
-calories <- dailyCalories_merged
+activity <- read_csv("dailyActivity_merged.csv")
+calories <- read_csv("dailyCalories_merged.csv")
 
 # separate date time into data and time columns, drop time column
-sleep <- sleepDay_merged %>% 
+sleep <- read_csv("sleepDay_merged.csv") %>% 
   separate(SleepDay, c("SleepDay", "other"), sep = " ") %>% select(-other)
 
 ```
