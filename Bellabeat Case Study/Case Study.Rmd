@@ -14,12 +14,12 @@ Goal: Want to gain insight into how non-Bellabeat users use smart devices, then 
 
 #### What is the problem you are trying to solve?
 Why are these users not using Bellabeat?
-* Ie: why are they using Fitbit
+* Ie: why are they using Fitbit  
 
 
 
 #### How can your insights drive business decisions?
-What can we do to get users to start using Bellabeat?
+* What can we do to get users to start using Bellabeat?  
 
 
 
@@ -29,7 +29,7 @@ What can we do to get users to start using Bellabeat?
 + Why are people using Fitbit instead of Bellabeat?
 2. Stakeholders 
 + Bellabeat founders 
-+ Strategy, marketing, product team (if insights require them to make changes)
++ Strategy, marketing, product team (if insights require them to make changes)  
 
 
 
@@ -161,8 +161,6 @@ sleep_cat <- cbind(c("Very Slow", "Slow", "Normal", "Fast"), c("< 10 min", "10 -
 
 sleep_cat %>% as.data.frame() %>% rename("Sleep Category" = V1, "Range" = V2)
 
-
-
 ```
 
 Now, let's see a summary of the relevant sleep and exercise data:
@@ -182,11 +180,41 @@ fitbit_data %>%
 ```
 
 
-However, it's a little hard to discern trends with a table of numbers, so I built a Tableau dashboard that translates these insights into graphs. 
-
-<iframe src="https://public.tableau.com/views/BellabeatViz/Dashboard1?:showVizHome=no&:embed=true" width="800" height="600"></iframe>
 
 
+However, it's a little hard to discern trends with a table of numbers, so I built a Tableau dashboard that translates these insights into graphs.  
+
+<iframe src="https://public.tableau.com/views/BellabeatViz/Dashboard1?:showVizHome=no&:embed=true" width="900" height="750"></iframe>
 
 
-https://public.tableau.com/views/BellabeatViz/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link
+
+
+To explore this data vizualization, you can adjust the filters "Fall Asleep" to filter which Fall Asleep Category is shown or "Outlier" to view the data without the outlier in the Very Slow Category.
+
+
+# fall asleep vs asleep viz is bad!!! 
+
+Conclusion: 
+
+### General Information About the Data
+
+The data is split into 4 categories: Fast, Normal, Slow, and Very Slow. The Fast and Very Slow make up about 25% of the data, as shown in the Grouped by ID graph in "Count of Fall Asleep Cat". The Slow category makes up the most data points, which is reasonable since we expect most our sample to fall between the extreme ranges. 
+
+
+### Slow Category 
+
+Data 
+
+### Fast Category 
+
+
+
+FAST: People who fall asleep more quickly, sleep less than 5 hrs, and have more sedentary minutes 
+### maybe don't feel like exercising bc too tired, fall asleep quickly bc already sleep deprived, actually burn the most calories 
+### avg_seden_min higher mebbe bc they're awake for more hours of the day
+
+VERY SLOW: burn the least calories, spend the least time working out
+
+- outlier 
+
+

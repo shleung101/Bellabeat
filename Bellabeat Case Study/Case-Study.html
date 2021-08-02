@@ -613,7 +613,9 @@ summary {
 </div>
 <div id="how-can-your-insights-drive-business-decisions" class="section level4">
 <h4>How can your insights drive business decisions?</h4>
-<p>What can we do to get users to start using Bellabeat?</p>
+<ul>
+<li>What can we do to get users to start using Bellabeat?</li>
+</ul>
 </div>
 <div id="key-tasks" class="section level4">
 <h4>Key Tasks</h4>
@@ -818,9 +820,29 @@ sleep_cat %&gt;% as.data.frame() %&gt;% rename(&quot;Sleep Category&quot; = V1, 
 ## 4 Very Slow          52     8961.          650.          408.       19.6
 ## # ... with 1 more variable: avg_cal_burned &lt;dbl&gt;</code></pre>
 <p>However, it’s a little hard to discern trends with a table of numbers, so I built a Tableau dashboard that translates these insights into graphs.</p>
-<iframe src="https://public.tableau.com/views/BellabeatViz/Dashboard1?:showVizHome=no&amp;:embed=true" width="800" height="600">
+<iframe src="https://public.tableau.com/views/BellabeatViz/Dashboard1?:showVizHome=no&amp;:embed=true" width="900" height="750">
 </iframe>
-<p><a href="https://public.tableau.com/views/BellabeatViz/Dashboard1" class="uri">https://public.tableau.com/views/BellabeatViz/Dashboard1</a>?:language=en-US&amp;publish=yes&amp;:display_count=n&amp;:origin=viz_share_link</p>
+<p>To explore this data vizualization, you can adjust the filters “Fall Asleep” to filter which Fall Asleep Category is shown or “Outlier” to view the data without the outlier in the Very Slow Category.</p>
+</div>
+</div>
+<div id="fall-asleep-vs-asleep-viz-is-bad" class="section level1">
+<h1>fall asleep vs asleep viz is bad!!!</h1>
+<p>Conclusion:</p>
+<div id="general-information-about-the-data" class="section level3">
+<h3>General Information About the Data</h3>
+<p>The data is split into 4 categories: Fast, Normal, Slow, and Very Slow. The Fast and Very Slow make up about 25% of the data, as shown in the Grouped by ID graph in “Count of Fall Asleep Cat”. The Slow category makes up the most data points, which is reasonable since we expect most our sample to fall between the extreme ranges.</p>
+</div>
+<div id="slow-category" class="section level3">
+<h3>Slow Category</h3>
+<p>Data</p>
+</div>
+<div id="fast-category" class="section level3">
+<h3>Fast Category</h3>
+<p>FAST: People who fall asleep more quickly, sleep less than 5 hrs, and have more sedentary minutes ### maybe don’t feel like exercising bc too tired, fall asleep quickly bc already sleep deprived, actually burn the most calories ### avg_seden_min higher mebbe bc they’re awake for more hours of the day</p>
+<p>VERY SLOW: burn the least calories, spend the least time working out</p>
+<ul>
+<li>outlier</li>
+</ul>
 </div>
 </div>
 
