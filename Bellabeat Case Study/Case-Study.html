@@ -823,18 +823,21 @@ sleep_cat %&gt;% as.data.frame() %&gt;% rename(&quot;Sleep Category&quot; = V1, 
 <iframe src="https://public.tableau.com/views/BellabeatViz/Dashboard1?:showVizHome=no&amp;:embed=true" width="900" height="750">
 </iframe>
 <p>To explore this data vizualization, you can adjust the filters “Fall Asleep” to filter which Fall Asleep Category is shown or “Outlier” to view the data without the outlier in the Very Slow Category.</p>
-</div>
-</div>
-<div id="fall-asleep-vs-asleep-viz-is-bad" class="section level1">
-<h1>fall asleep vs asleep viz is bad!!!</h1>
 <p>Conclusion:</p>
+</div>
 <div id="general-information-about-the-data" class="section level3">
 <h3>General Information About the Data</h3>
-<p>The data is split into 4 categories: Fast, Normal, Slow, and Very Slow. The Fast and Very Slow make up about 25% of the data, as shown in the Grouped by ID graph in “Count of Fall Asleep Cat”. The Slow category makes up the most data points, which is reasonable since we expect most our sample to fall between the extreme ranges.</p>
+<p>The data is split into 4 categories: Fast, Normal, Slow, and Very Slow. The Fast and Very Slow make up about 20% of the data, as shown in the piechart “Category Distribution”. The Slow category makes up the most data points, which is reasonable since we expect most our sample to fall between the extreme ranges.</p>
+<div id="fall-asleep-and-sleep-duration" class="section level4">
+<h4>Fall Asleep and Sleep Duration</h4>
+<p>Average Minutes Asleep<br />
+The spread within Normal has multiple outliers, most of which are below average, indicating that these users have a shorter sleep duration. The Slow and Very Slow category each contain an outlier.</p>
+<p>Average Minutes to Fall Asleep<br />
+The Fast, Normal, and Slow category do not have any outliers in terms of the average minutes to fall asleep. However, the Very Slow group has a single outlier with a significant increase in time to fall asleep.</p>
+</div>
 </div>
 <div id="slow-category" class="section level3">
 <h3>Slow Category</h3>
-<p>Data</p>
 </div>
 <div id="fast-category" class="section level3">
 <h3>Fast Category</h3>

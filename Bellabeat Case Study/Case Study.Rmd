@@ -192,18 +192,25 @@ However, it's a little hard to discern trends with a table of numbers, so I buil
 To explore this data vizualization, you can adjust the filters "Fall Asleep" to filter which Fall Asleep Category is shown or "Outlier" to view the data without the outlier in the Very Slow Category.
 
 
-# fall asleep vs asleep viz is bad!!! 
 
 Conclusion: 
 
 ### General Information About the Data
 
-The data is split into 4 categories: Fast, Normal, Slow, and Very Slow. The Fast and Very Slow make up about 25% of the data, as shown in the Grouped by ID graph in "Count of Fall Asleep Cat". The Slow category makes up the most data points, which is reasonable since we expect most our sample to fall between the extreme ranges. 
+The data is split into 4 categories: Fast, Normal, Slow, and Very Slow. The Fast and Very Slow make up about 20% of the data, as shown in the piechart "Category Distribution". The Slow category makes up the most data points, which is reasonable since we expect most our sample to fall between the extreme ranges. 
 
+#### Fall Asleep and Sleep Duration
+
+Average Minutes Asleep    
+The spread within Normal has multiple outliers, most of which are below average, indicating that these users have a shorter sleep duration. The Slow and Very Slow category each contain an outlier.
+
+
+Average Minutes to Fall Asleep  
+The Fast, Normal, and Slow category do not have any outliers in terms of the average minutes to fall asleep. However, the Very Slow group has a single outlier with a significant increase in time to fall asleep.
 
 ### Slow Category 
 
-Data 
+
 
 ### Fast Category 
 
