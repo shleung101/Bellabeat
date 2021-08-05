@@ -644,8 +644,7 @@ summary {
 </div>
 <div id="process" class="section level2">
 <h2>Process</h2>
-<p>Assumptions * Time to fall asleep corresponds to the same day as the total activity done in the same row</p>
-<p>Note: We will only show correlation</p>
+<p>Assumptions * Time to fall asleep corresponds to the same day as the total activity done in the same row * People consistently fall into the same fall asleep category every night (checked)</p>
 <p>Cleaning Process</p>
 <pre class="r"><code># rename df
 activity &lt;- read_csv(&quot;dailyActivity_merged.csv&quot;)
@@ -823,7 +822,6 @@ sleep_cat %&gt;% as.data.frame() %&gt;% rename(&quot;Sleep Category&quot; = V1, 
 <iframe src="https://public.tableau.com/views/BellabeatViz/Dashboard1?:showVizHome=no&amp;:embed=true" width="900" height="750">
 </iframe>
 <p>To explore this data vizualization, you can adjust the filters “Fall Asleep” to filter which Fall Asleep Category is shown or “Outlier” to view the data without the outlier in the Very Slow Category.</p>
-<p>Conclusion:</p>
 </div>
 <div id="general-information-about-the-data" class="section level3">
 <h3>General Information About the Data</h3>
@@ -831,21 +829,47 @@ sleep_cat %&gt;% as.data.frame() %&gt;% rename(&quot;Sleep Category&quot; = V1, 
 <div id="fall-asleep-and-sleep-duration" class="section level4">
 <h4>Fall Asleep and Sleep Duration</h4>
 <p>Average Minutes Asleep<br />
-The spread within Normal has multiple outliers, most of which are below average, indicating that these users have a shorter sleep duration. The Slow and Very Slow category each contain an outlier.</p>
+The spread within Normal has multiple outliers, most of which are below average, indicating that these users have a shorter sleep duration. The Slow and Very Slow category each contain an outlier. However, a more noticeable trend is that from Fast to Very Slow, the Average Minutes Asleep increases, with an almost 300 minute/5 hr difference between the Fast average and Very Slow average.</p>
 <p>Average Minutes to Fall Asleep<br />
 The Fast, Normal, and Slow category do not have any outliers in terms of the average minutes to fall asleep. However, the Very Slow group has a single outlier with a significant increase in time to fall asleep.</p>
+<p>To see the effects of users within the IQR, there is a filter to exclude all outliers within the Fall Asleep and Sleep Duration graph.</p>
 </div>
 </div>
-<div id="slow-category" class="section level3">
-<h3>Slow Category</h3>
+<div id="general-trends-and-analysis" class="section level3">
+<h3>General Trends and Analysis</h3>
+<p>Overall, it seems like the average number of very active minutes and average number of sedentary minutes increases as you go from Very Slow to Fast.</p>
+<div id="fast-category" class="section level4">
+<h4>Fast Category</h4>
+<p>In essence, we see that people who fall asleep quicker often don’t stay asleep for very long. This pattern is often linked to people who are sleep-deprived: they don’t sleep enough every day, which helps them fall asleep faster.</p>
+<p>Moreover, we see that users in the Fast category have the highest Average Very Active Minutes and the highest Average Sedentary Minutes. Since we know that Fast users often have a short sleep duration, they likely have more time awake to do other activities. As a result, they may be able to spend more time working at their sedentary desk job, while also finding time to exercise.</p>
 </div>
-<div id="fast-category" class="section level3">
-<h3>Fast Category</h3>
-<p>FAST: People who fall asleep more quickly, sleep less than 5 hrs, and have more sedentary minutes ### maybe don’t feel like exercising bc too tired, fall asleep quickly bc already sleep deprived, actually burn the most calories ### avg_seden_min higher mebbe bc they’re awake for more hours of the day</p>
-<p>VERY SLOW: burn the least calories, spend the least time working out</p>
+<div id="slow-category" class="section level4">
+<h4>Slow Category</h4>
+<p>Users in Slow have the least Very Active Minutes, Average Sedentary Minutes, and the most Minutes Asleep. This may illustrate that slow to fall asleep users could have low quality sleep, causing them to sleep longer to compensate for bad sleep. Consequently, they would have less to time to do other activities because they spend much longer time in bed.</p>
+</div>
+</div>
+<div id="conclusion" class="section level3">
+<h3>Conclusion</h3>
+<p>Overall, within this dataset, there is a negative correlation between time to fall asleep and minutes of exercise. Namely, people who fall asleep fast often sleep much less, so they may have more time to work and exercise and vice versa for those who fall asleep slow.</p>
+</div>
+<div id="recommendations" class="section level3">
+<h3>Recommendations</h3>
+<p>Now that we have this insight, Bellabeat can include new features into their apps to help users maintain a healthy lifestyle.</p>
+<p>New Features:</p>
+<ol style="list-style-type: decimal">
+<li>Sleep quality summary after every night</li>
+</ol>
 <ul>
-<li>outlier</li>
+<li>Include summary statistics and descriptions of the user’s sleep quality</li>
 </ul>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Reminders to sleep if user falls asleep fast and consistently does not get 7-9 hours of sleep</p></li>
+<li><p>Recommendations to help users fall asleep faster or stay asleep if the user seems to have sleeping troubles</p></li>
+</ol>
+<ul>
+<li>Ex: No caffeine, no exercising before bed, consult a sleep doctor if necessary</li>
+</ul>
+<p>Our busy lifestyles often let us put sleep on the backburner, even though sleep is such a vital component of a healthy living. With these new features, we can help improve the quality of life of our users and help them place an importance on sleep.</p>
 </div>
 </div>
 
