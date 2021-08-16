@@ -604,48 +604,68 @@ summary {
 
 
 <div id="ask" class="section level2">
-<h2>Ask</h2>
-<p>Guiding Questions:</p>
+<h2><em>Ask</em></h2>
+<div id="guiding-questions" class="section level4">
+<h4>Guiding Questions:</h4>
 <p>Goal: Want to gain insight into how non-Bellabeat users use smart devices, then apply insights to one Bellabeat product</p>
+<p><br /></p>
+</div>
 <div id="what-is-the-problem-you-are-trying-to-solve" class="section level4">
 <h4>What is the problem you are trying to solve?</h4>
-<p>Why are these users not using Bellabeat? * Ie: why are they using Fitbit</p>
-</div>
-<div id="how-can-your-insights-drive-business-decisions" class="section level4">
-<h4>How can your insights drive business decisions?</h4>
 <ul>
-<li>What can we do to get users to start using Bellabeat?</li>
+<li><p>Why are these users using Fitbit and not using Bellabeat?</p></li>
+<li><p>What features can we add to increase the amount of Bellabeat users</p></li>
 </ul>
+<p><br /></p>
 </div>
 <div id="key-tasks" class="section level4">
 <h4>Key Tasks</h4>
 <ol style="list-style-type: decimal">
-<li>Business task</li>
-</ol>
+<li>Business task
 <ul>
 <li>Why are people using Fitbit instead of Bellabeat?</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>Stakeholders</li>
-</ol>
+</ul></li>
+<li>Stakeholders
 <ul>
 <li>Bellabeat founders</li>
 <li>Strategy, marketing, product team (if insights require them to make changes)</li>
-</ul>
+</ul></li>
+</ol>
+<p><br /></p>
 </div>
 <div id="deliverable" class="section level4">
 <h4>Deliverable</h4>
-<p>To determine particular trends in Bellabeat’s competitors, we will use the provided Fitbit data (and many include other relevant datasets as well). In this project, we will focus on different factors that competitors have (but Bellabeat don’t have) to ascertain whether this difference has an effect on sales or membership. Ultimately, the goal is to identify trends within our competitor’s product and see if we can apply these trends to Bellabeat.</p>
+<p>To determine particular trends in Bellabeat’s competitors, we will use the provided Fitbit data. In this project, we will focus on different factors that competitors have (but Bellabeat don’t have) to ascertain whether this difference has an effect on sales or membership. Ultimately, the goal is to identify trends within our competitor’s product and see if we can apply these trends to Bellabeat.</p>
+<p><br /></p>
 </div>
 </div>
 <div id="prepare" class="section level2">
-<h2>Prepare</h2>
-<p>Data Source:</p>
+<h2><em>Prepare</em></h2>
+<p>Data Source: <a href="https://www.kaggle.com/arashnic/fitbit">FitBit Fitness Tracker Data</a></p>
+<div id="data-credibility" class="section level4">
+<h4>Data Credibility</h4>
+<p>The Fitbit Fitness Tracker Data used in this project is a public dataset that tracks daily calories burnt, time spent sleeping, and physical activity. The data itself is a credible source as it is official data from Fitbit, so the results of this project will be an accurate reflection of this sample of participants.</p>
+</div>
+<div id="concerns-about-the-data" class="section level4">
+<h4>Concerns About the Data</h4>
+<ul>
+<li>Dataset is small
+<ul>
+<li>Since the dataset only tracks 30 participants, it is important to note that insights from this dataset are not representative of the whole population and that further analysis with a much more comprehensive dataset is needed to draw overarching population conclusions.</li>
+</ul></li>
+<li>Does not contain personal health information
+<ul>
+<li>Consequently, we can only make recommendations based on these correlations. Each data point (measured by day) is not independent and is affected by the person that is behind the data point. For example, we would expect data from a person with chronic insomnia to consistently sleep less compared to other participants.</li>
+</ul></li>
+</ul>
+<p><br /></p>
+</div>
 </div>
 <div id="process" class="section level2">
-<h2>Process</h2>
+<h2><em>Process</em></h2>
 <p>Assumptions * Time to fall asleep corresponds to the same day as the total activity done in the same row * People consistently fall into the same fall asleep category every night (checked)</p>
-<p>Cleaning Process</p>
+<div id="cleaning-process" class="section level4">
+<h4>Cleaning Process</h4>
 <pre class="r"><code># rename df
 activity &lt;- read_csv(&quot;dailyActivity_merged.csv&quot;)
 calories &lt;- read_csv(&quot;dailyCalories_merged.csv&quot;)
@@ -686,8 +706,9 @@ head(a)</code></pre>
 ## # ... with 4 variables: Id &lt;dbl&gt;, TotalDistance &lt;dbl&gt;, temp_total &lt;dbl&gt;,
 ## #   difference &lt;dbl&gt;</code></pre>
 </div>
+</div>
 <div id="analysis" class="section level2">
-<h2>Analysis</h2>
+<h2><em>Analysis</em></h2>
 <p>Basic summary of the data</p>
 <pre class="r"><code>fitbit_data %&gt;% group_by(Id) %&gt;% 
   summarise(avg_time_fall_asleep = mean(TotalMinutesFallAsleep), 
@@ -786,6 +807,7 @@ fitbit_mean
 </tr>
 </tbody>
 </table>
+<p><br /></p>
 <div id="goal-is-there-a-correlation-between-sleep-and-exercise" class="section level4">
 <h4>Goal: Is there a correlation between sleep and exercise?</h4>
 <p>To better see a possible correlation between sleep and exercise, we can place users into categories depending on their falling asleep rate.</p>
@@ -822,38 +844,45 @@ sleep_cat %&gt;% as.data.frame() %&gt;% rename(&quot;Sleep Category&quot; = V1, 
 <iframe src="https://public.tableau.com/views/BellabeatViz/Dashboard1?:showVizHome=no&amp;:embed=true" width="900" height="750">
 </iframe>
 <p>To explore this data vizualization, you can adjust the filters “Fall Asleep” to filter which Fall Asleep Category is shown or “Outlier” to view the data without the outlier in the Very Slow Category.</p>
+<p><br /></p>
 </div>
-<div id="general-information-about-the-data" class="section level3">
-<h3>General Information About the Data</h3>
+</div>
+<div id="general-insights" class="section level2">
+<h2><em>General Insights</em></h2>
 <p>The data is split into 4 categories: Fast, Normal, Slow, and Very Slow. The Fast and Very Slow make up about 20% of the data, as shown in the piechart “Category Distribution”. The Slow category makes up the most data points, which is reasonable since we expect most our sample to fall between the extreme ranges.</p>
+<p><br /></p>
 <div id="fall-asleep-and-sleep-duration" class="section level4">
 <h4>Fall Asleep and Sleep Duration</h4>
-<p>Average Minutes Asleep<br />
+<p><em>Average Minutes Asleep</em><br />
 The spread within Normal has multiple outliers, most of which are below average, indicating that these users have a shorter sleep duration. The Slow and Very Slow category each contain an outlier. However, a more noticeable trend is that from Fast to Very Slow, the Average Minutes Asleep increases, with an almost 300 minute/5 hr difference between the Fast average and Very Slow average.</p>
-<p>Average Minutes to Fall Asleep<br />
+<p><em>Average Minutes to Fall Asleep</em><br />
 The Fast, Normal, and Slow category do not have any outliers in terms of the average minutes to fall asleep. However, the Very Slow group has a single outlier with a significant increase in time to fall asleep.</p>
 <p>To see the effects of users within the IQR, there is a filter to exclude all outliers within the Fall Asleep and Sleep Duration graph.</p>
+<p><br /></p>
 </div>
-</div>
-<div id="general-trends-and-analysis" class="section level3">
-<h3>General Trends and Analysis</h3>
+<div id="general-trends-and-analysis" class="section level4">
+<h4>General Trends and Analysis</h4>
 <p>Overall, it seems like the average number of very active minutes and average number of sedentary minutes increases as you go from Very Slow to Fast.</p>
-<div id="fast-category" class="section level4">
-<h4>Fast Category</h4>
+<p><br /></p>
+<div id="fast-category" class="section level5">
+<h5>Fast Category</h5>
 <p>In essence, we see that people who fall asleep quicker often don’t stay asleep for very long. This pattern is often linked to people who are sleep-deprived: they don’t sleep enough every day, which helps them fall asleep faster.</p>
 <p>Moreover, we see that users in the Fast category have the highest Average Very Active Minutes and the highest Average Sedentary Minutes. Since we know that Fast users often have a short sleep duration, they likely have more time awake to do other activities. As a result, they may be able to spend more time working at their sedentary desk job, while also finding time to exercise.</p>
+<p><br /></p>
 </div>
-<div id="slow-category" class="section level4">
-<h4>Slow Category</h4>
-<p>Users in Slow have the least Very Active Minutes, Average Sedentary Minutes, and the most Minutes Asleep. This may illustrate that slow to fall asleep users could have low quality sleep, causing them to sleep longer to compensate for bad sleep. Consequently, they would have less to time to do other activities because they spend much longer time in bed.</p>
+<div id="slow-category" class="section level5">
+<h5>Slow Category</h5>
+<p>Users in Slow have the least Very Active Minutes, Average Sedentary Minutes, and the most Minutes Asleep. This may illustrate that slow to fall asleep users could have low quality sleep, causing them to sleep longer to compensate for bad sleep. Consequently, they would have less to time to do other activities because they spend much longer time in bed. <br /></p>
 </div>
 </div>
-<div id="conclusion" class="section level3">
-<h3>Conclusion</h3>
+</div>
+<div id="conclusion" class="section level2">
+<h2><em>Conclusion</em></h2>
 <p>Overall, within this dataset, there is a negative correlation between time to fall asleep and minutes of exercise. Namely, people who fall asleep fast often sleep much less, so they may have more time to work and exercise and vice versa for those who fall asleep slow.</p>
+<p>Disclaimer: Further analysis on a much larger-scale data is needed to confirm these conclusions. <br /></p>
 </div>
-<div id="recommendations" class="section level3">
-<h3>Recommendations</h3>
+<div id="recommendations" class="section level2">
+<h2><em>Recommendations</em></h2>
 <p>Now that we have this insight, Bellabeat can include new features into their apps to help users maintain a healthy lifestyle.</p>
 <p>New Features:</p>
 <ol style="list-style-type: decimal">
@@ -870,7 +899,6 @@ The Fast, Normal, and Slow category do not have any outliers in terms of the ave
 <li>Ex: No caffeine, no exercising before bed, consult a sleep doctor if necessary</li>
 </ul>
 <p>Our busy lifestyles often let us put sleep on the backburner, even though sleep is such a vital component of a healthy living. With these new features, we can help improve the quality of life of our users and help them place an importance on sleep.</p>
-</div>
 </div>
 
 

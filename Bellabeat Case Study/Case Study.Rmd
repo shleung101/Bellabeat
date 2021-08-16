@@ -5,53 +5,61 @@ date: "7/25/2021"
 output: html_document
 ---
 
-## Ask 
+## *Ask*   
 
-Guiding Questions: 
+
+#### Guiding Questions:
 
 Goal: Want to gain insight into how non-Bellabeat users use smart devices, then apply insights to one Bellabeat product 
 
+<br/>
 
-#### What is the problem you are trying to solve?
-Why are these users not using Bellabeat?
-* Ie: why are they using Fitbit  
+#### What is the problem you are trying to solve?  
+  * Why are these users using Fitbit and not using Bellabeat?  
 
-
-
-#### How can your insights drive business decisions?
-* What can we do to get users to start using Bellabeat?  
-
-
-
+  * What features can we add to increase the amount of Bellabeat users 
+  
+<br/>
 
 #### Key Tasks 
 1. Business task
-+ Why are people using Fitbit instead of Bellabeat?
+    + Why are people using Fitbit instead of Bellabeat?
 2. Stakeholders 
-+ Bellabeat founders 
-+ Strategy, marketing, product team (if insights require them to make changes)  
+    + Bellabeat founders 
+    + Strategy, marketing, product team (if insights require them to make changes)  
 
 
-
+<br/>
 
 #### Deliverable
-To determine particular trends in Bellabeat’s competitors, we will use the provided Fitbit data (and many include other relevant datasets as well). In this project, we will focus on different factors that competitors have (but Bellabeat don’t have) to ascertain whether this difference has an effect on sales or membership. Ultimately, the goal is to identify trends within our competitor's product and see if we can apply these trends to Bellabeat.
+To determine particular trends in Bellabeat’s competitors, we will use the provided Fitbit data. In this project, we will focus on different factors that competitors have (but Bellabeat don’t have) to ascertain whether this difference has an effect on sales or membership. Ultimately, the goal is to identify trends within our competitor's product and see if we can apply these trends to Bellabeat.
 
+<br/>
 
+## *Prepare*
 
-## Prepare
+Data Source: [FitBit Fitness Tracker Data](https://www.kaggle.com/arashnic/fitbit)
 
-Data Source: 
+#### Data Credibility
+The Fitbit Fitness Tracker Data used in this project is a public dataset that tracks daily calories burnt, time spent sleeping, and physical activity. The data itself is a credible source as it is official data from Fitbit, so the results of this project will be an accurate reflection of this sample of participants.
 
+#### Concerns About the Data
+* Dataset is small 
+  + Since the dataset only tracks 30 participants, it is important to note that insights from this dataset are not representative of the whole population and that further analysis with a much more comprehensive dataset is needed to draw overarching population conclusions. 
+  
+* Does not contain personal health information
+  + Consequently, we can only make recommendations based on these correlations. Each data point (measured by day) is not independent and is affected by the person that is behind the data point. For example, we would expect data from a person with chronic insomnia to consistently sleep less compared to other participants.
 
-## Process
+<br/>
+
+## *Process*
 
 Assumptions
 * Time to fall asleep corresponds to the same day as the total activity done in the same row 
 * People consistently fall into the same fall asleep category every night (checked)
 
 
-Cleaning Process 
+#### Cleaning Process 
 
 ```{r, include=FALSE}
 library(tidyverse)
@@ -111,7 +119,7 @@ head(a)
 ```
 
 
-## Analysis
+## *Analysis*
 
 
 Basic summary of the data 
@@ -149,7 +157,7 @@ sum_results %>%
   kable_minimal()
 ```
 
-
+<br/>
 
 #### Goal: Is there a correlation between sleep and exercise?
 
@@ -190,53 +198,63 @@ However, it's a little hard to discern trends with a table of numbers, so I buil
 
 To explore this data vizualization, you can adjust the filters "Fall Asleep" to filter which Fall Asleep Category is shown or "Outlier" to view the data without the outlier in the Very Slow Category.
 
+<br/>
 
-### General Information About the Data
+## *General Insights*
 
 The data is split into 4 categories: Fast, Normal, Slow, and Very Slow. The Fast and Very Slow make up about 20% of the data, as shown in the piechart "Category Distribution". The Slow category makes up the most data points, which is reasonable since we expect most our sample to fall between the extreme ranges. 
 
+<br/>
+
 #### Fall Asleep and Sleep Duration
 
-Average Minutes Asleep    
+*Average Minutes Asleep*    
 The spread within Normal has multiple outliers, most of which are below average, indicating that these users have a shorter sleep duration. The Slow and Very Slow category each contain an outlier. However, a more noticeable trend is that from Fast to Very Slow, the Average Minutes Asleep increases, with an almost 300 minute/5 hr difference between the Fast average and Very Slow average.
 
 
-Average Minutes to Fall Asleep  
+*Average Minutes to Fall Asleep*  
 The Fast, Normal, and Slow category do not have any outliers in terms of the average minutes to fall asleep. However, the Very Slow group has a single outlier with a significant increase in time to fall asleep.
 
 To see the effects of users within the IQR, there is a filter to exclude all outliers within the Fall Asleep and Sleep Duration graph.
 
-### General Trends and Analysis
+<br/>
+
+#### General Trends and Analysis
 Overall, it seems like the average number of very active minutes and average number of sedentary minutes increases as you go from Very Slow to Fast.
 
+<br/>
 
-#### Fast Category 
+##### Fast Category 
 
 In essence, we see that people who fall asleep quicker often don't stay asleep for very long. This pattern is often linked to people who are sleep-deprived: they don't sleep enough every day, which helps them fall asleep faster. 
 
 Moreover, we see that users in the Fast category have the highest Average Very Active Minutes and the highest Average Sedentary Minutes. Since we know that Fast users often have a short sleep duration, they likely have more time awake to do other activities. As a result, they may be able to spend more time working at their sedentary desk job, while also finding time to exercise. 
 
-#### Slow Category
+<br/>
+
+##### Slow Category
 Users in Slow have the least Very Active Minutes, Average Sedentary Minutes, and the most Minutes Asleep. This may illustrate that slow to fall asleep users could have low quality sleep, causing them to sleep longer to compensate for bad sleep. Consequently, they would have less to time to do other activities because they spend much longer time in bed. 
+<br/>
 
-
-### Conclusion
+## *Conclusion*
 Overall, within this dataset, there is a negative correlation between time to fall asleep and minutes of exercise. Namely, people who fall asleep fast often sleep much less, so they may have more time to work and exercise and vice versa for those who fall asleep slow. 
-  
-  
-### Recommendations
+
+Disclaimer: Further analysis on a much larger-scale data is needed to confirm these conclusions.
+<br/> 
+
+## *Recommendations*
 Now that we have this insight, Bellabeat can include new features into their apps to help users maintain a healthy lifestyle. 
 
 
 New Features:
 
 1. Sleep quality summary after every night
-+ Include summary statistics and descriptions of the user's sleep quality
+  + Include summary statistics and descriptions of the user's sleep quality
 
 2. Reminders to sleep if user falls asleep fast and consistently does not get 7-9 hours of sleep
 
 3. Recommendations to help users fall asleep faster or stay asleep if the user seems to have sleeping troubles
-+ Ex: No caffeine, no exercising before bed, consult a sleep doctor if necessary
+  + Ex: No caffeine, no exercising before bed, consult a sleep doctor if necessary
 
 
 
